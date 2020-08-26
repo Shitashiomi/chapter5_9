@@ -1,0 +1,60 @@
+<div class="body">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+        <h1>User info</h1>
+          <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no-image2.jpg" %>
+
+          <table class="table">
+            <tbody>
+              <tr></tr>
+              <tr>
+                <th>name</th>
+                <th><%= current_user.name %></th>
+              </tr>
+              <tr>
+                <th>introduction</th>
+                <th><%= current_user.introduction %></th>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <% if user_signed_in? && @user == current_user %>
+            <%= link_to "", edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
+            <% end %>
+          </div>
+
+          <h2>New book</h2>
+          <%= form_for(@book) do |f| %>
+            <div class="field row">
+              <lavel>Title</lavel>
+                <%= f.text_field :title, class: "col-xs-12" %>
+            </div>
+            <div class="action row">
+              <lavel>Body</lavel>
+              <%= f.text_area :body, class: "col-xs-12" %>
+            </div>
+              <%= f.submit 'Create Book', class: "btn btn-primary btn btn-block" %>
+           <% end %>
+            </div>
+
+          <div class="col-xs-9">
+            <h1>Users</h1>
+            <table>
+	            <tr>
+		            <th>画像</th>
+		            <th>Name</th>
+	            </tr>
+             <% @users.each do |user| %>
+               <tr>
+    	           <th><%= attachment_image_tag user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no-image3.jpg" %></th>
+    	           <th><%= user.name %></th>
+    	           <th><%= link_to "Show", user_path(user.id) %></th>
+               </tr>
+	           <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
